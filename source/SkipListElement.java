@@ -11,14 +11,14 @@ public class SkipListElement {
     private int iHeight = 1;
     private SkipListElement[] iNextElements = new SkipListElement[MAX_HEIGHT];
 
-    private int iContent = -1;
+    private Integer iContent = -1;
 
-    public SkipListElement(int pContent)
+    public SkipListElement(Integer pContent)
     {
         iContent=pContent;
     }
 
-    public int getContent()
+    public Integer getContent()
     {
         return iContent;
     }
@@ -68,7 +68,7 @@ public class SkipListElement {
 
         if(MAX_HEIGHT < pNewHeight)
         {
-            MAX_HEIGHT = pNewHeight;
+            MAX_HEIGHT = pNewHeight+1;
         }
     }
 

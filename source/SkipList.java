@@ -8,17 +8,22 @@ public class SkipList
 {
     private SkipListElement iHead;
 
+    public SkipList()
+    {
+        iHead= new SkipListElement(null);
+    }
+
     public SkipListElement getHead()
     {
         return iHead;
     }
 
-    public SkipListElement search(int pContent)
+    public SkipListElement search(Integer pContent)
     {
         return search(iHead, pContent, null, iHead.getHeight());
     }
 
-    public SkipListElement search(SkipListElement pSleStart, int pContent, SkipListElement pSleEnde, int pLevel)
+    public SkipListElement search(SkipListElement pSleStart, Integer pContent, SkipListElement pSleEnde, int pLevel)
     {
         SkipListElement tPreviousElement = pSleStart;
         SkipListElement tCurrentElement = pSleStart;
