@@ -24,7 +24,7 @@ public class SkipListElement {
     }
 
 
-    public SkipListElement chainElementIntoList(SkipList pList, SkipListElement pNewElement)
+    public SkipListElement chainElementIntoList(SkipList pList, SkipListElement pNewElement, SkipListElement[] pParentNodes)
     {
         SkipListElement tListHead = pList.getHead();
         if (tListHead.iNextElements.length < MAX_HEIGHT)

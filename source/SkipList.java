@@ -29,7 +29,10 @@ public class SkipList
             tCurrentElement = tCurrentElement.getNextElement(pLevel);
         }
 
-        //TODO: Implement element checking.
+        if(tPreviousElement.getContent()==pContent)
+        {
+            return tPreviousElement;
+        }
 
         if (pLevel > 1)
         {
@@ -51,10 +54,10 @@ public class SkipList
             tNewElement.setHeight(tNewElement.getHeight() + 1);
         }
 
-        insert(iHead, tNewElement, null, iHead.getHeight());
+        insert(iHead, tNewElement, null, iHead.getHeight(), new SkipListElement[iHead.getHeight()]);
     }
 
-    public void insert(SkipListElement pSleStart, SkipListElement pSleToInsert, SkipListElement pSleEnde, int pLevel)
+    public void insert(SkipListElement pSleStart, SkipListElement pSleToInsert, SkipListElement pSleEnde, int pLevel, SkipListElement[] pParentArray)
     {
         SkipListElement tPreviousElement = pSleStart;
         SkipListElement tCurrentElement = pSleStart;
@@ -67,13 +70,13 @@ public class SkipList
 
         if (tPreviousElement.getContent() == pSleToInsert.getContent())
         {
-            tPreviousElement.chainElementIntoList(this, pSleToInsert);
+            tPreviousElement.chainElementIntoList(this, pSleToInsert, pParentArray);
             return;
         }
 
         if (tCurrentElement.getContent() == pSleToInsert.getContent())
         {
-            tCurrentElement.chainElementIntoList(this, pSleToInsert);
+            tCurrentElement.chainElementIntoList(this, pSleToInsert, pParentArray);
             return;
         }
 
@@ -81,11 +84,12 @@ public class SkipList
         {
             if ((tPreviousElement.getContent() < pSleToInsert.getContent()) && (tCurrentElement.getContent() > pSleToInsert.getContent()))
             {
-                insert(tPreviousElement, pSleToInsert, tCurrentElement, pLevel - 1);
+                pParentArray[pLevel]=tPreviousElement;
+                insert(tPreviousElement, pSleToInsert, tCurrentElement, pLevel - 1, pParentArray);
                 return;
             }
         }
 
-        tPreviousElement.chainElementIntoList(this, pSleToInsert);
+        tPreviousElement.chainElementIntoList(this, pSleToInsert, pParentArray);
     }
 }
