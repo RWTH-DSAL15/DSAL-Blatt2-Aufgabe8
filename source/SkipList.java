@@ -13,11 +13,33 @@ public class SkipList
         return iHead;
     }
 
-    public int search(SkipListElement sle)
+    public SkipListElement search(int pContent)
     {
+        return search(iHead, pContent, null, iHead.getHeight());
+    }
 
+    public SkipListElement search(SkipListElement pSleStart, int pContent, SkipListElement pSleEnde, int pLevel)
+    {
+        SkipListElement tPreviousElement = pSleStart;
+        SkipListElement tCurrentElement = pSleStart;
 
-        return -1;
+        while((tCurrentElement.getContent() <= pContent) && (tCurrentElement != pSleEnde))
+        {
+            tPreviousElement = tCurrentElement;
+            tCurrentElement = tCurrentElement.getNextElement(pLevel);
+        }
+
+        //TODO: Implement element checking.
+
+        if (pLevel > 1)
+        {
+            if ((tPreviousElement.getContent() < pContent) && (tCurrentElement.getContent() > pContent))
+            {
+                return search(tPreviousElement, pContent, tCurrentElement, pLevel - 1);
+            }
+        }
+
+        return null;
     }
 
 
