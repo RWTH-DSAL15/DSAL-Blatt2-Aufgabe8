@@ -6,7 +6,7 @@
 
 public class SkipListElement {
 
-    private static int MAX_HEIGHT = 2;
+    public static int MAX_HEIGHT = 2;
 
     private int iHeight = 1;
     private SkipListElement[] iNextElements = new SkipListElement[MAX_HEIGHT];
@@ -27,6 +27,15 @@ public class SkipListElement {
     public SkipListElement chainElementIntoList(SkipList pList, SkipListElement pNewElement)
     {
         return pNewElement;
+    }
+
+    public SkipListElement getNextElement(int pHeight)
+    {
+        if(iNextElements.length>=pHeight)
+        {
+            return null;
+        }
+        return iNextElements[pHeight];
     }
 
     public void setHeight(int pNewHeight)

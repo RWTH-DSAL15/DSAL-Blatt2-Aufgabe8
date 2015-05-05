@@ -12,4 +12,13 @@ public class SkipList
     {
         return iHead;
     }
+
+    public int search(SkipListElement sle)
+    {
+
+
+        return -1;
+    }
+
+
 }
