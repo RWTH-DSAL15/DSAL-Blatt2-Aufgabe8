@@ -44,15 +44,48 @@ public class SkipList
 
     public void insert(int pContent)
     {
-        SkipListElement tNewElement= new SkipListElement();
+        SkipListElement tNewElement= new SkipListElement(pContent);
 
         while(flipCoin())
         {
             tNewElement.setHeight(tNewElement.getHeight() + 1);
         }
 
-
+        insert(iHead, tNewElement, null, iHead.getHeight());
     }
 
-    public void insert ()
+    public void insert(SkipListElement pSleStart, SkipListElement pSleToInsert, SkipListElement pSleEnde, int pLevel)
+    {
+        SkipListElement tPreviousElement = pSleStart;
+        SkipListElement tCurrentElement = pSleStart;
+
+        while((tCurrentElement.getContent() <= pSleToInsert.getContent()) && (tCurrentElement != pSleEnde))
+        {
+            tPreviousElement = tCurrentElement;
+            tCurrentElement = tCurrentElement.getNextElement(pLevel);
+        }
+
+        if (tPreviousElement.getContent() == pSleToInsert.getContent())
+        {
+            tPreviousElement.chainElementIntoList(this, pSleToInsert);
+            return;
+        }
+
+        if (tCurrentElement.getContent() == pSleToInsert.getContent())
+        {
+            tCurrentElement.chainElementIntoList(this, pSleToInsert);
+            return;
+        }
+
+        if (pLevel > 1)
+        {
+            if ((tPreviousElement.getContent() < pSleToInsert.getContent()) && (tCurrentElement.getContent() > pSleToInsert.getContent()))
+            {
+                insert(tPreviousElement, pSleToInsert, tCurrentElement, pLevel - 1);
+                return;
+            }
+        }
+
+        tPreviousElement.chainElementIntoList(this, pSleToInsert);
+    }
 }
