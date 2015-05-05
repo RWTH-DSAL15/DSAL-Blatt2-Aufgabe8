@@ -42,5 +42,17 @@ public class SkipList
         return null;
     }
 
+    public void insert(int pContent)
+    {
+        SkipListElement tNewElement= new SkipListElement();
 
+        while(flipCoin())
+        {
+            tNewElement.setHeight(tNewElement.getHeight() + 1);
+        }
+
+
+    }
+
+    public void insert ()
 }

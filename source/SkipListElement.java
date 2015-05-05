@@ -13,9 +13,9 @@ public class SkipListElement {
 
     private int iContent = -1;
 
-    public SkipListElement()
+    public SkipListElement(int pContent)
     {
-
+        iContent=pContent;
     }
 
     public int getContent()
@@ -49,7 +49,8 @@ public class SkipListElement {
 
     public void setHeight(int pNewHeight)
     {
-
+        iHeight=pNewHeight;
+        iNextElements= new SkipListElement[pNewHeight];
     }
 
     public int getHeight()
