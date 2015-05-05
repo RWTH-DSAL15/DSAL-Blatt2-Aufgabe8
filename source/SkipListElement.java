@@ -24,18 +24,32 @@ public class SkipListElement {
     }
 
 
-    public SkipListElement chainElementIntoList(SkipList pList, SkipListElement pNewElement, SkipListElement[] pParentNodes)
+    public SkipList chainElementIntoList(SkipList pList, SkipListElement pNewElement, SkipListElement[] pParentNodes)
     {
-        SkipListElement tListHead = pList.getHead();
-        if (tListHead.iNextElements.length < MAX_HEIGHT)
+        if (pList.getHead().iNextElements.length < MAX_HEIGHT)
         {
-            //SkipListElement[] tOldHead =
+            SkipListElement[] tElement = pList.getHead().iNextElements.clone();
+            pList.getHead().iNextElements = new SkipListElement[MAX_HEIGHT];
+            System.arraycopy(tElement, 0, pList.getHead().iNextElements, 0, tElement.length);
         }
 
+        for (int tLevel = 0; tLevel < pNewElement.getHeight(); tLevel ++)
+        {
+            if (tLevel < iHeight)
+            {
+                SkipListElement tNextNode = iNextElements[tLevel];
+                iNextElements[tLevel] = pNewElement;
+                pNewElement.iNextElements[tLevel] = tNextNode;
+            }
+            else
+            {
+                SkipListElement tNextNode = pParentNodes[tLevel].iNextElements[tLevel];
+                pParentNodes[tLevel].iNextElements[tLevel] = pNewElement;
+                pNewElement.iNextElements[tLevel] = tNextNode;
+            }
+        }
 
-
-
-        return pNewElement;
+        return pList;
     }
 
     public SkipListElement getNextElement(int pHeight)
@@ -51,6 +65,11 @@ public class SkipListElement {
     {
         iHeight=pNewHeight;
         iNextElements= new SkipListElement[pNewHeight];
+
+        if(MAX_HEIGHT < pNewHeight)
+        {
+            MAX_HEIGHT = pNewHeight;
+        }
     }
 
     public int getHeight()
