@@ -17,23 +17,25 @@ public class SkipListElement {
     {
 
     }
-    public int getHeight()
-    {
-        return iHeight;
-    }
+
     public int getContent()
     {
         return iContent;
     }
 
 
-    public SkipListElement chainElementIntoList(SkipListElement tNewElement)
+    public SkipListElement chainElementIntoList(SkipList pList, SkipListElement pNewElement)
     {
-        return tNewElement;
+        return pNewElement;
     }
 
     public void setHeight(int pNewHeight)
     {
 
+    }
+
+    public int getHeight()
+    {
+        return iHeight;
     }
 }

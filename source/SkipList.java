@@ -4,5 +4,12 @@
 /  Created on : 5-5-2015
 */
 
-public class SkipList {
+public class SkipList
+{
+    private SkipListElement iHead;
+
+    public SkipListElement getHead()
+    {
+        return iHead;
+    }
 }
